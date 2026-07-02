@@ -1,0 +1,12 @@
+# Day 3 (Scheidegger/Kübler) — surrogates, GPs, active subspaces, SMM notebooks.
+# Best-guess environment (not pinned to a tested lockfile): install into a fresh
+# virtual environment with Python 3.10–3.12, e.g.
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+numpy>=1.24,<3
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+scikit-learn>=1.3       # GP regression (GaussianProcessRegressor) in the GP/BAL/GP-VFI notebooks
+torch>=2.1              # deep kernel learning and deep active-subspace notebooks (CPU build is fine)
+jupyterlab>=4.0         # or classic `notebook`, if preferred

@@ -1,0 +1,12 @@
+# Day 2 (Scheidegger/Kübler) — Deep Equilibrium Nets, NAS, IRBC, OLG notebooks.
+# Best-guess environment (not pinned to a tested lockfile): install into a fresh
+# virtual environment with Python 3.10–3.12, e.g.
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+numpy>=1.24,<3
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+scikit-learn>=1.3
+tensorflow>=2.15        # Keras policy networks + Adam training loops (all DEQN notebooks)
+jupyterlab>=4.0         # or classic `notebook`, if preferred
