@@ -8,6 +8,16 @@ estimation with simulated method of moments (SMM) on a surrogate, and
 constrained optimal carbon taxation as a surrogate application (with
 uncertainty quantification of the social cost of carbon in the appendix).
 
+## Agenda mapping (Wed, July 8 — morning)
+
+Per the [school agenda](https://liboecon.com/2026_summer_school_agenda.html):
+
+- **Lecture 6** (9:00–10:30) *Gaussian Processes and Bayesian Numerical Methods* (Felix Kübler) — the GP toolbox: Session 1 **appendix** (GP regression, BAL, GP-VFI, active subspaces) and notebooks `01_02`–`01_09`.
+- **Lecture 7** (11:00–12:30) *Deep Surrogate Models and Deep Uncertainty Quantification* (Scheidegger & Kübler) — Session 1 main part, with Sessions 2–3 (surrogate-based SMM; optimal carbon taxes & UQ of the SCC) as the worked applications.
+
+The Day-3 afternoon continues with Ben Moll (Structural Reinforcement Learning)
+and Yucheng Yang (DeepHAM) — separate materials, not in this folder.
+
 | Session | Topic | Slides | Notebooks |
 |---|---|---|---|
 | 1 | Surrogate models in economics & finance (GP toolbox in the appendix) | [`slides/01_surrogates_and_gps/01_surrogates.tex`](slides/01_surrogates_and_gps/) | [`code/01_surrogates_and_gps/`](code/01_surrogates_and_gps/) |

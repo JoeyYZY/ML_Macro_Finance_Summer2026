@@ -1,10 +1,18 @@
 # Day 2 — Deep Equilibrium Nets
 
-Simon Scheidegger · Felix Kübler
+Simon Scheidegger
 
 Four sessions: an introduction to Deep Equilibrium Nets (theory), a session on
 tuning them (architecture search and loss balancing), and two applications
 (IRBC and OLG).
+
+## Agenda mapping (Tue, July 7)
+
+Per the [school agenda](https://liboecon.com/2026_summer_school_agenda.html):
+
+- **Lecture 4** (9:00–10:30) *Deep Equilibrium Nets: Foundations* — Session 1 (Brock–Mirman).
+- **Lecture 5** (11:00–12:30) *Deep Equilibrium Nets: Applications* — Sessions 3–4 (IRBC, OLG).
+- **Tutorial 2** (14:00–15:30) *Hands-on Practice* — the exercise notebooks, plus Session 2 (NAS & loss normalization).
 
 | Session | Topic | Slides | Notebooks |
 |---|---|---|---|
