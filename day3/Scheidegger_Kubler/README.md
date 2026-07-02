@@ -13,7 +13,8 @@ uncertainty quantification of the social cost of carbon in the appendix).
 Per the [school agenda](https://liboecon.com/2026_summer_school_agenda.html):
 
 - **Lecture 6** (9:00–10:30) *Gaussian Processes and Bayesian Numerical Methods* (Felix Kübler) — the GP toolbox: Session 1 **appendix** (GP regression, BAL, GP-VFI, active subspaces) and notebooks `01_02`–`01_09`.
-- **Lecture 7** (11:00–12:30) *Deep Surrogate Models and Deep Uncertainty Quantification* (Scheidegger & Kübler) — Session 1 main part, with Sessions 2–3 (surrogate-based SMM; optimal carbon taxes & UQ of the SCC) as the worked applications.
+- **Lecture 7** (11:00–12:30) *Deep Surrogate Models and Deep Uncertainty Quantification* (Scheidegger & Kübler) — **Sessions 2–3**: surrogate-based SMM and constrained optimal carbon taxes (with UQ of the SCC in the appendix).
+- **Self-study:** everything else — Session 1's main part (what surrogates are, applications in economics and finance, the lazy-learning pitfall), the parts of the GP appendix not covered in Lecture 6, and all accompanying notebooks. This folder deliberately contains far more than the two lecture slots can cover.
 
 The Day-3 afternoon continues with Ben Moll (Structural Reinforcement Learning)
 and Yucheng Yang (DeepHAM) — separate materials, not in this folder.

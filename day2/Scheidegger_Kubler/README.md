@@ -13,6 +13,7 @@ Per the [school agenda](https://liboecon.com/2026_summer_school_agenda.html):
 - **Lecture 4** (9:00–10:30) *Deep Equilibrium Nets: Foundations* — Session 1 (Brock–Mirman).
 - **Lecture 5** (11:00–12:30) *Deep Equilibrium Nets: Applications* — Sessions 3–4 (IRBC, OLG).
 - **Tutorial 2** (14:00–15:30) *Hands-on Practice* — the exercise notebooks, plus Session 2 (NAS & loss normalization).
+- **Self-study:** this folder deliberately contains more than the slots can cover — the full Session-2 decks (NAS, loss normalization), the loss-kernel comparison notebook, the exercises with solutions, and the lecture script in `readings/`.
 
 | Session | Topic | Slides | Notebooks |
 |---|---|---|---|
