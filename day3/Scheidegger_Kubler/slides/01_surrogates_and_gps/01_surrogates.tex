@@ -148,7 +148,7 @@
 \end{itemize}
 
 \vspace{0.4em}
-\textbf{Appendix --- the Gaussian-process toolbox} (reference material for the afternoon):
+\textbf{Appendix --- the Gaussian-process toolbox} (the material of Lecture 6, Felix K\"ubler):
 \begin{itemize}\itemsep2pt
   \item GP regression and deep kernels
   \item Bayesian active learning
@@ -461,7 +461,7 @@ K\"ubler, Scheidegger \& Surbek (2026, forthcoming in \emph{JPE Macroeconomics})
 
 \vspace{0.3cm}
 \begin{alertblock}{Preview}
-Parts III and IV of this lecture introduce \emphc{Gaussian Processes} and \emphc{Bayesian Active Learning} --- the tools behind this application.
+The appendix introduces \emphc{Gaussian Processes} and \emphc{Bayesian Active Learning} --- the tools behind this application (Lecture 6).
 \end{alertblock}
 \end{frame}
 
@@ -636,7 +636,7 @@ $\theta = (\theta_{\text{model}}, \theta_{\text{pol}})$: \emphc{model} = environ
   \item \textbf{\color{uzhblue}Fix.} Augment the self-supervised residual loss with a small \lemph{semi-supervised distillation} term (Hinton et al., 2015) on a few trusted anchor states:
 \end{itemize}
 \[
-  \mathcal{L}^{\mathrm{dist}}=\mathcal{L}
+  \ell^{\mathrm{dist}}=\ell
    +\lambda\!\sum_{\x_a\in\mathcal{A}}\!\bigl\|\mathcal{N}(\x_a)-p^\star(\x_a)\bigr\|^2 .
 \]
 {\footnotesize
@@ -775,7 +775,7 @@ $\theta = (\theta_{\text{model}}, \theta_{\text{pol}})$: \emphc{model} = environ
 \begin{itemize}
   \item GPs: best for moderate dimensions ($d \leq 10$) with built-in UQ.
   \item DNNs: best for high dimensions ($d \gg 10$) with large data.
-  \item Combining both is a powerful strategy (cf.\ slide~9).
+  \item Combining both is a powerful strategy (cf.\ the comparison table in the main part).
 \end{itemize}
 \end{alertblock}
 
@@ -1708,7 +1708,7 @@ U(\x) = w_{\mathrm{obj}} \cdot \mu(\x) + \frac{w_{\mathrm{var}}}{2}\log\sigma^2(
 \begin{itemize}\setlength{\itemsep}{1pt}\small
   \item $\sigma^2(\x)$: posterior variance \,---\, \emphc{exploration}; sampling where large reduces global uncertainty.
   \item $\mu(\x)$: posterior mean \,---\, \emphc{objective-following} bias (useful in Bayesian optimisation, not for global surrogate accuracy).
-  \item $w_{\mathrm{obj}}, w_{\mathrm{var}} \geq 0$: weights (independent of AR(1) $\varrho$ and discount $\beta$).
+  \item $w_{\mathrm{obj}}, w_{\mathrm{var}} \geq 0$: fixed weights.
 \end{itemize}
 \end{block}
 
@@ -1752,7 +1752,8 @@ U(\x) = w_{\mathrm{obj}} \cdot \mu(\x) + \frac{w_{\mathrm{var}}}{2}\log\sigma^2(
   \item[\textbf{(c)}] Second iteration fills the remaining gap --- 5 points suffice to track the true function.
 \end{itemize}
 \vspace{-0.15cm}
-\textbf{Key contrast with uniform:} BAL concentrates points where the function is hardest to approximate.}
+\textbf{Key contrast with uniform:} BAL concentrates points where the function is hardest to approximate.\\[2pt]
+\emph{(Pre-generated illustration; notebook \texttt{01\_02\_GP\_and\_BAL.ipynb} reproduces the BAL loop itself.)}}
 \end{frame}
 
 % --- Slide 38: Applications in Economics ---
@@ -1955,7 +1956,7 @@ GP posterior mean $\to$ next iterate; GP posterior \emphc{variance} $\to$ free u
 \vspace{0.2em}
 \begin{block}{Recall}
 \tiny
-Same GP posterior from Part~II, now applied iteratively inside a DP algorithm.
+Same GP posterior from Appendix~A, now applied iteratively inside a DP algorithm.
 \end{block}
 \end{columns}
 

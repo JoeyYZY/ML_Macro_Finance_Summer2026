@@ -105,7 +105,10 @@ Session 1 built the surrogate and previewed its three uses:
 \end{enumerate}
 
 \vspace{0.4em}
-This session works out the \emphc{estimate} operator in full: simulated method of moments on a Brock--Mirman surrogate --- first a sharply identified scalar ($\varrho$), then a partially identified pair ($\beta, \varrho$).
+This session works out the \emphc{estimate} operator in full: simulated method of moments on a Brock--Mirman surrogate --- first a sharply identified scalar ($\varrho$), then a partially identified pair ($\beta, \varrho$).  The Gaussian processes of Lecture 6 return in Session 3 as the \emph{second} surrogate.
+
+\vspace{0.2em}
+{\footnotesize \emph{Notation.} On Day 2, $\theta$ denoted network weights; from here on $\theta$ is the \emph{structural} parameter vector --- the network's weights stay implicit.}
 
 \vspace{0.3em}
 \begin{center}
@@ -134,7 +137,7 @@ where $m(\theta) = \mathbb{E}_\theta[g(y_t)]$ are the \emphc{model-implied momen
 \textbf{Identification.} $\theta_0$ is the unique zero of $\mathbb{E}[g(y_t)] - m(\theta)$ on the parameter space. Just-identified: $q = p$. Over-identified: $q > p$ (testable restrictions).
 
 \vspace{0.2em}
-\textbf{This lecture.} $y_t$ = log output / consumption / capital. $g$ = three autocorrelation and volatility moments. $\theta = \varrho$ (Task 1--3) or $\theta = (\beta, \varrho)$ (Task 4).
+\textbf{This lecture.} $y_t$ = log output / consumption / capital. $g$ = three autocorrelation and volatility moments. $\theta = \varrho$ (Tasks 1--3) or $\theta = (\beta, \varrho)$ (Task 4).
 \end{frame}
 
 % --- SMM primer 2: estimator and weighting matrix ---
@@ -251,7 +254,7 @@ Train $\mathcal{N}(z_t, K_t, \varrho) \to s_t \in (0,1)$, with $K_{t+1} = (1-\de
   \item 3-input MLP $(z, K, \varrho) \to s$ with sigmoid output.
   \item Euler residual loss with Gauss--Hermite quadrature; $\varrho$ enters the \emph{transition} as well as the policy. Under log utility, $u'(C) = 1/C$; the notebooks minimize the \emph{relative} (scale-free) residual, which shares the zero set of $1 - \beta\,C_t\,\E{\cdot}$ but is better conditioned in FP32:
   {\small\[
-  \mathcal{L} = \frac{1}{N}\sum_i \!\left(\left[\,\beta\, C^{(i)}_t \sum_j w_j \frac{1-\delta + \alpha z^{(i)}_{t+1,j} K^{(i)\,\alpha-1}_{t+1}}{C^{(i)}_{t+1,j}}\,\right]^{-1} - 1\right)^{\!2}
+  \ell = \frac{1}{N}\sum_i \!\left(\left[\,\beta\, C^{(i)}_t \sum_j w_j \frac{1-\delta + \alpha z^{(i)}_{t+1,j} K^{(i)\,\alpha-1}_{t+1}}{C^{(i)}_{t+1,j}}\,\right]^{-1} - 1\right)^{\!2}
   \]}
   \vspace{-10pt}
   \item Two-phase training: (i) uniform sampling on $(z, K, \varrho)$ box, (ii) simulation-based refinement.
@@ -302,7 +305,7 @@ Re-seed the simulator \emph{to the same seed} on every evaluation, so the candid
 \end{frame}
 
 % --- Task 4 ---
-\begin{frame}{Task 4: Diagnose the Fit (Single-Parameter)}
+\begin{frame}{Task 3b: Diagnose the Fit (Single-Parameter)}
 \begin{itemize}
   \item How close is $\hat\varrho$ to $\varrho_{\text{true}} = 0.90$?
   \item Plot the SMM objective profile and mark both $\varrho_{\text{true}}$ and $\hat\varrho$.
@@ -374,7 +377,7 @@ Two moment subsets:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Joint Task: Estimate $(\beta, \varrho)$}
+\begin{frame}{Task 4: Joint Estimation of $(\beta, \varrho)$}
 \begin{block}{Goal}
 $\hat\theta = \argmin_{\theta = (\beta,\varrho)}\; [m(\theta) - \hat{m}^{\mathrm{data}}]^\top W\, [m(\theta) - \hat{m}^{\mathrm{data}}]$ \quad on $\beta\in[0.92,0.99] \times \varrho\in[0.50, 0.99]$.
 \end{block}

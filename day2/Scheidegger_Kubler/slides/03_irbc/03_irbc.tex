@@ -282,7 +282,7 @@ u^j(c) \;=\; \begin{cases} \dfrac{c^{\,1 - 1/\gamma_j} - 1}{1 - 1/\gamma_j}, & \
 \end{itemize}
 
 \vspace{0.2em}
-{\scriptsize \emphc{Notation:} in this chapter $\gamma$ is the \textbf{IES}; later chapters on continuous-time HA and climate re-purpose $\gamma$ for CRRA risk aversion (with $\psi$ then the IES). Restated at the top of each chapter.}
+{\scriptsize \emphc{Notation:} in this session $\gamma$ is the \textbf{IES}; already this afternoon's OLG session re-purposes $\gamma$ for CRRA risk aversion (the switch is flagged there), as do later chapters of the script.}
 
 \vspace{0.3em}
 \textbf{Social planner} maximizes with Pareto weights $\tau^j$:
@@ -844,7 +844,8 @@ with $B$ the batch size:
 \end{frame}
 
 % --- Slide 25: Gauss-Hermite Quadrature ---
-\begin{frame}{Gauss--Hermite Quadrature}
+\begin{frame}{Gauss--Hermite Quadrature (Recap)}
+{\scriptsize\emph{Recap of Session 1's quadrature interlude.}}\vspace{-0.3em}
 \footnotesize
 The Euler equation requires computing $\E{\cdot}$ over $N+1$ normal shocks.
 
@@ -1063,7 +1064,7 @@ $\Rightarrow$ \textbf{Next:} implementation in TensorFlow/Keras and results.
         \item Same training loop and diagnostics as the smooth benchmark
     \end{itemize}
 
-    \item \texttt{03\_03\_IRBC\_Exercise.ipynb} -- \emph{hands-on exercise}
+    \item \texttt{03\_03\_IRBC\_Exercise.ipynb} -- \emph{hands-on exercise; uses a \emph{standalone} quarterly calibration ($\delta=0.025$, $A_{\mathrm{tfp}}=1$), deliberately decoupled from the DEQN notebooks' $k_{ss}=1$ normalization}
     \begin{itemize}\itemsep0pt
         \item Task 1: comparative statics on the deterministic steady state
         \item Task 2: inverse-loss weighting for multi-component losses (preview of ReLoBRaLo)
@@ -1441,7 +1442,7 @@ FB (country 2) & $\sim 10^{-5}$ & $\sim 10^{-4}$ \\
 
 % --- Bridge frame ---
 \begin{frame}[shrink=20]{Bridge: From IRBC to OLG and Beyond}
-\textbf{What we leave with today.}  An IRBC DEQN trained with a single persistent-simulation pipeline and equal loss weights: the same recipe scales from $N=2$ to $N=10$ countries with no architectural change.  NAS-tuned width and ReLoBRaLo-balanced loss components are optional refinements, introduced in Session 2 (NAS / loss normalization).
+\textbf{What we leave with today.}  An IRBC DEQN trained with a single persistent-simulation pipeline and equal loss weights: the same recipe scales from $N=2$ to $N=10$ countries with no architectural change.  NAS-tuned width and ReLoBRaLo-balanced loss components are optional refinements, covered in this afternoon's tutorial (Session 2: NAS / loss normalization).
 
 \vspace{0.4em}
 \begin{columns}[T]
@@ -1449,7 +1450,7 @@ FB (country 2) & $\sim 10^{-5}$ & $\sim 10^{-4}$ \\
 \textbf{Next (Session 4): OLG with DEQNs.}
 \begin{itemize}
     \item The analytic 6-cohort benchmark of Krueger--K\"ubler (2004) and the benchmark OLG economy of Azinovic, Gaegauf \& Scheidegger (2022).
-    \item Borrowing constraints handled with the same Fischer--Burmeister machinery introduced here.
+    \item Borrowing constraints handled with a \emph{product-form} KKT residual ($\lambda \cdot g = 0$) --- a sibling of the Fischer--Burmeister trick introduced here.
 \end{itemize}
 
 \column{0.48\textwidth}

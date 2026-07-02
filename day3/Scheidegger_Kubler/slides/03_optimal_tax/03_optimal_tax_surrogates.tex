@@ -174,7 +174,7 @@ Three questions ride on one parametric surrogate. Session 2 asked the first; tod
 \textbf{Operator} & \textbf{Question} & \textbf{Post-processing} & \textbf{Where} \\
 \midrule
 \emphc{Estimate} & Which parameters fit the data? & $\argmin$ of an SMM criterion over $\bm{\theta}$ & Session 2 \\[3pt]
-\emphc{Quantify} & Which parameter uncertainties matter? & propagate $p(\bm{\theta})$ through a QoI: univariate effects, Sobol' indices, Shapley values & Appendix (SCC) \\[3pt]
+\emphc{Quantify} & Which parameter uncertainties matter? & propagate $p(\bm{\theta})$ through a QoI: univariate effects, Sobol' indices, Shapley values & Appendix (SCC: social cost of carbon) \\[3pt]
 \emphc{Design} & Which policy is best? & constrained $\argmax$ of a welfare QoI over $\vartheta$ & Today (carbon taxes) \\
 \bottomrule
 \end{tabular}
@@ -291,7 +291,7 @@ In Session 2 the QoI was the moment vector $m(\theta)$ and the operator was $\ar
 \end{block}
 
 \vspace{0.2em}
-{\footnotesize \emph{Notation.} On Day 2, $\theta$ denoted the network weights; today $\bm{\theta}$ is reserved for structural parameters, so the network weights are $\bm{\rho}$.}
+{\footnotesize \emph{Notation.} On Day 2, $\theta$ denoted the network weights; today $\bm{\theta}$ is reserved for structural parameters, so the network weights are $\bm{\rho}$.  (The appendix, following the source papers, also uses $\rho$ for the carbon-intensity persistence and the pure time-discount rate --- context disambiguates.)}
 \end{frame}
 
 % == F11 [NEW]: what scales up ==
@@ -303,7 +303,7 @@ In Session 2 the QoI was the moment vector $m(\theta)$ and the operator was $\ar
  & \textbf{Session 2 (Brock--Mirman)} & \textbf{Today (climate applications)} \\
 \midrule
 Surrogate 1 inputs & $(z, K, \varrho)$, then $(z, K, \beta, \varrho)$ & OLG IAM state $[t, TP_t, TP_{\mathrm{reached}}, \kappa_t, a_{t,j}, E_t]$ plus 16 policy pseudo-states; IAM state plus uncertain $\bm{\theta}$ in the UQ appendix \\[3pt]
-QoI shape & three scalar moments $m_1, m_2, m_3$ & an SCC surface $\mathrm{SCC}(\theta_1,\dots,\theta_N)$ and 40 cohort welfares \\[3pt]
+QoI shape & three scalar moments $m_1, m_2, m_3$ & an SCC surface $\mathrm{SCC}(\bm{\theta})$ and 40 cohort welfares \\[3pt]
 Second surrogate & none needed: moments were cheap & GP regression + Bayesian active learning: each welfare evaluation costs 10{,}000 simulated paths \\
 \bottomrule
 \end{tabular}
@@ -514,7 +514,7 @@ Use $ \tilde U_t $ for welfare under taxation.
     {\footnotesize (Where $\tilde{U}_t(\vartheta)$ is the ex-ante expected lifetime utility of generation $t$)}
     \item \textbf{Welfare Metric:} Gains are reported as the consumption equivalence factor ($\text{CE}_t$):
     \[
-       \text{CE}_t = \left(\frac{\tilde{U}_t}{U_t}\right)^{\frac{1}{1-\sigma}}-1 \quad \text{\small{(where $U_t$ is BAU utility)}}
+       \text{CE}_t = \left(\frac{\tilde{U}_t}{U_t}\right)^{\frac{1}{1-\sigma}}-1 \quad \text{\small{(where $U_t$ is business-as-usual (BAU) utility)}}
     \]
     \item \textbf{Scope \& Challenge:}
     \begin{itemize}
@@ -645,7 +645,7 @@ y = \big[a_{t+1,j+1},\; v_{t,j}\big]
 
             \vspace{0.2em}
             \small{
-            \[ \alpha(x) = \underbrace{\mu(x)}_{\text{Exploit}} + \kappa \cdot \underbrace{\sigma(x)}_{\text{Explore}} \]
+            \[ \alpha(x) = \underbrace{\mu(x)}_{\text{Exploit}} + \omega \cdot \underbrace{\sigma(x)}_{\text{Explore}} \]
             }
 
             \includegraphics[width=0.82\linewidth, keepaspectratio]{tax/bal.png}
@@ -988,9 +988,9 @@ The optimal transfer shares allocate resources to specific cohorts to satisfy th
 \toprule
  & \textbf{Session 2: SMM} & \textbf{Appendix: UQ} & \textbf{Today: Design} \\
 \midrule
-Model & Brock--Mirman & stochastic IAM with Bayesian learning about the ECS & stochastic OLG IAM with tipping risk \\
+Model & Brock--Mirman & stochastic IAM with Bayesian learning about the equilibrium climate sensitivity (ECS) & stochastic OLG IAM with tipping risk \\
 Surrogate inputs & $(z, K, \beta, \varrho)$ & climate-economy states plus uncertain $\bm{\theta}$ (9+N states) & OLG IAM state plus 16 policy pseudo-states \\
-QoI & moments $m_1$ to $m_3$ & $\mathrm{SCC}(\theta_1,\dots,\theta_N)$ & 40 cohort welfares \\
+QoI & moments $m_1$ to $m_3$ & $\mathrm{SCC}(\bm{\theta})$ & 40 cohort welfares \\
 Second surrogate & none needed & GP + Bayesian active learning & GP $\times 40$ with BAL \\
 Operator & $\argmin$ under CRN & global sensitivity analysis (UE, Sobol', Shapley) & constrained $\argmax$ \\
 Output & interior estimate & importance ranking of parameters & Pareto-improving tax \\

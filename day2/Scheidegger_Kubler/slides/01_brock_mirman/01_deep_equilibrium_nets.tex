@@ -137,7 +137,7 @@
 \vspace{0.5em}
 \textbf{Wrap-up + Hands-on}
 \begin{itemize}
-    \item Four notebooks: BM (01\_01), BM+shocks (01\_02), exercises blank/solved (01\_03/01\_04)
+    \item Notebooks 01\_01--01\_04 (BM, BM+shocks, exercises); optional 01\_05
     \item Exercise preview: KKT + Fischer--Burmeister, 6-period OLG
 \end{itemize}
 \end{columns}
@@ -798,7 +798,7 @@ $\Rightarrow$ \emphc{No labels needed}; we call this \textbf{self-supervised} le
 \footnotesize
 \STATE \textbf{Input:} Initial state $\x_0$, network $\mathcal{N}_\theta$, learning rate $\eta$, episodes $E$, simulation horizon $T_{\mathrm{sim}}$, training steps $T_{\mathrm{train}}$
 \FOR{episode $e = 1, \ldots, E$}
-    \STATE \textbf{Simulate path:} $\x_0 \to \x_1 \to \cdots \to \x_{T_{\mathrm{sim}}}$ using $\mathcal{N}_\theta$ and transition law
+    \STATE \textbf{Simulate path:} $\x_0 \to \x_1 \to \cdots \to \x_{T_{\mathrm{sim}}}$ using $\mathcal{N}_\theta$ and transition law\footnote{The IRBC/OLG notebooks (Sessions 3--4) use a \emph{persistent} variant: trajectories continue across episodes, with no reset.}
     \FOR{gradient step $t = 1, \ldots, T_{\mathrm{train}}$}
         \STATE Draw mini-batch $\mathcal{B} \subset \{\x_0, \ldots, \x_{T_{\mathrm{sim}}}\}$
         \STATE Compute loss:~$\ell_\theta = \frac{1}{|\mathcal{B}|}\sum_{\x_i \in \mathcal{B}} \|G(\x_i, \mathcal{N}_\theta(\x_i))\|^2$
@@ -1051,7 +1051,7 @@ The budget then implies $K_{t+1} = \phi\, z_t K_t^{\alpha}$.
 
 % --- Slide 28: Brock-Mirman residual ---
 \begin{frame}[shrink=10]{Brock--Mirman: Residual, Expectation, Loss}
-\textbf{Pathwise residual used in the notebook} (full-depreciation $\delta=1$ benchmark):
+\textbf{Pathwise residual used in the notebook} (full-depreciation $\delta=1$ benchmark; $G_t$ is the pathwise counterpart of the $e_{\mathrm{REE}}$ shown two slides back --- both share the same zero set):
 \[
 G_t = 1 - \beta \, \frac{C_t}{C_{t+1}} \cdot \alpha z_{t+1} K_{t+1}^{\alpha-1},
 \]
@@ -1496,11 +1496,11 @@ than to grow a gigantic ox.''}
 \textbf{Exercise notebooks 01\_03/01\_04 extend Brock--Mirman in two directions:}
 \begin{enumerate}\itemsep2pt
     \item \emph{Endogenous labor} with a non-negativity constraint on leisure, introducing a \emph{Karush--Kuhn--Tucker} multiplier $\mu_t \ge 0$.
-    \item A \emph{6-period OLG} economy with a borrowing constraint on the young, again KKT with $\mu_t \ge 0$.
+    \item A \emph{6-period OLG} economy with a borrowing constraint on the young, again KKT with $\mu_t \ge 0$ (a warm-up economy --- distinct from the Krueger--K\"ubler analytic model of Session 4).
 \end{enumerate}
 
 \vspace{0.4em}
-\textbf{Why this matters for DEQNs.}  A KKT system imposes complementary slackness $\mu \ge 0,\ g \ge 0,\ \mu\,g = 0$.  This cannot be encoded as a smooth equation, so we replace it by the \emph{Fischer--Burmeister} function
+\textbf{Why this matters for DEQNs.}  A KKT system imposes complementary slackness $\mu \ge 0,\ g \ge 0,\ \mu\,g = 0$ --- three conditions that cannot be enforced by a single equation without extra care.  \emph{Fischer--Burmeister} packages all three into one residual (Session 4 will use an alternative, the product-form residual $\mu \cdot g = 0$):
 \[
 \phi_{\mathrm{FB}}(a,b) \;=\; a + b - \sqrt{a^2 + b^2}, \qquad \phi_{\mathrm{FB}}(a,b) = 0 \ \Longleftrightarrow\ a \ge 0,\ b \ge 0,\ a\,b = 0,
 \]
@@ -1512,7 +1512,7 @@ which is smooth everywhere except at the origin and is fully differentiable by a
 
 % --- Slide 31: Hands-on Notebooks (wrap-up) ---
 \begin{frame}{Hands-on Notebooks}
-\textbf{Four notebooks} accompany this lecture:
+\textbf{Four notebooks} accompany this lecture (plus the optional loss-kernel study \texttt{01\_05}):
 
 \vspace{0.4em}
 \begin{enumerate}\itemsep2pt
@@ -1553,7 +1553,8 @@ All notebooks are in \texttt{day2/Scheidegger\_Kubler/code/01\_brock\_mirman/}.
 \column{0.45\textwidth}
 \begin{center}
 \textbf{Next up:}\\[6pt]
-{\large DEQN Exercises}\\[12pt]
+{\large Session 3: IRBC ---\\[2pt] nonlinear DSGE models in 4 to 100+ dimensions}\\[10pt]
+{\small (hands-on exercises: this afternoon's tutorial)}\\[6pt]
 \end{center}
 \end{columns}
 \end{frame}

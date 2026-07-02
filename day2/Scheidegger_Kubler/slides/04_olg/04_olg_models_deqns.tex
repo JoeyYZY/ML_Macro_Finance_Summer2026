@@ -734,7 +734,7 @@ Open \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}.  Set \texttt{RUN\_M
 \section{Part III: Benchmark 56-cohort OLG (AGS 2022 \S 3)}
 
 % --- III.1 Setup -------------------------------------------------------
-\begin{frame}{III.1 Setup --- the Leading Example of AGS (2022)}
+\begin{frame}[shrink=6]{III.1 Setup --- the Leading Example of AGS (2022)}
 \small
 \begin{columns}[T]
 \column{0.56\textwidth}
@@ -748,6 +748,9 @@ Open \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}.  Set \texttt{RUN\_M
     \item \emphc{Two constraints}: borrowing $k'^s \ge 0$ and collateral $k'^s + \kappa b'^s \ge 0$.
     \item Capital adjustment costs $\Psi^s = \tfrac{\zeta}{2}(k'^s - r k^s)^2$.
 \end{itemize}
+
+\vspace{0.2em}
+{\scriptsize \emphc{Notation vs.\ Session 3 (IRBC):} here $\alpha$ = capital share ($\zeta$ there), $\zeta$ = adjustment-cost coefficient ($\kappa$ there), $\kappa$ = collateral parameter, and $\gamma$ = CRRA risk aversion (IES there).}
 
 \column{0.42\textwidth}
 \centering
@@ -910,6 +913,7 @@ u'(c_t^s)\cdot p_t \;=\; \beta\,\E{u'(c_{t+1}^{s+1})} \;+\; \kappa\,\lambda_{\te
 \Loss_{D_{\text{train}}}(\theta) \;=\; \frac{1}{|D_{\text{train}}|}\,\frac{1}{4(A-1)+1}\!
 \sum_{x_j \in D_{\text{train}}}\!\Biggl[\;\sum_{s=1}^{A-1} R^{\,s}(x_j)^2 \;+\; \bigl(e_{\text{MC},b}(x_j)\bigr)^2\;\Biggr],
 \]
+{\scriptsize Uniform weights across $4(A-1)+1$ residuals of different scales; \emph{balancing} such components is exactly the topic of this afternoon's loss-normalization tutorial.}
 
 \vspace{4pt}
 \hrule
@@ -953,7 +957,7 @@ f\!\left(\!\begin{bmatrix} z_t \\ \bm{k}_t \\ \bm{b}_t \end{bmatrix}\!\right)
 \hat p_t
 \end{bmatrix}^{\!\top}
 \]
-{\footnotesize Output blocks: capital savings; borrowing multipliers; bond holdings $\hat b'^h$ (transformed to satisfy the collateral floor $\hat k'^h + \kappa\,\hat b'^h \ge 0$); collateral multipliers; equilibrium bond price (one scalar).}
+{\footnotesize Output blocks: capital savings; borrowing multipliers; bond holdings $\hat b'^h$ (transformed to satisfy the collateral floor $\hat k'^h + \kappa\,\hat b'^h \ge 0$); collateral multipliers $\hat\mu^h$ ($=\lambda_c$ above); equilibrium bond price (one scalar).}
 \vspace{-3pt}\end{exampleblock}
 
 \textbf{Such that} $G\bigl([z_t, \bm{k}_t, \bm{b}_t],\,f([z_t, \bm{k}_t, \bm{b}_t])\bigr) = \bm{0}$ where $G$ stacks the $4(A-1)+1$ equations of III.6.
