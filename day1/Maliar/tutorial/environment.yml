@@ -1,0 +1,13 @@
+name: maliar-handson
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - jupyter
+  - ipykernel
+  - tqdm
+  - pip
+  - pip:
+      - tensorflow==2.13.1
