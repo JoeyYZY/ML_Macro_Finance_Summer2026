@@ -18,6 +18,18 @@ Lecture slides, code, and readings will be posted here as the school approaches.
 
 ---
 
+## Class enrollment on the [Nuvolos Cloud](https://nuvolos.cloud/)
+
+* All lecture materials (slides, codes, and further readings) will be distributed via the [Nuvolos Cloud](https://nuvolos.cloud/).
+* To enroll in this class, please click on this [enrollment key](https://app.eu1.nuvolos.cloud/enroll/class/YntkrtPnGVU), and follow the steps.
+
+
+### Nuvolos Support
+
+- Nuvolos Support: <support@nuvolos.cloud>
+
+---
+
 ## Materials by Day
 
 Each day's folder contains `slides/`, `code/`, and `readings/` for the instructor(s). See the [Reading List (PDF)](Reading_List.pdf) for the full set of readings.
