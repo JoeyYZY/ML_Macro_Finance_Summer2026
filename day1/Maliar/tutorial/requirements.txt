@@ -1,0 +1,6 @@
+numpy
+matplotlib
+jupyter
+ipykernel
+tqdm
+tensorflow==2.13.1
