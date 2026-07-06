@@ -114,14 +114,14 @@
 \begin{block}{Part II --- The analytic 6-agent model (Krueger \& K\"ubler, 2004)}
 \vspace{-3pt}\begin{itemize}\itemsep0pt
     \item Model $\to$ equilibrium $\to$ cost $\to$ FREE $\to$ architecture $\to$ training $\to$ validation against the closed form.
-    \item Primary notebook: \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}; companion ablation \texttt{04\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb}.
+    \item Primary notebook: \texttt{05\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}; companion ablation \texttt{05\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb}.
 \end{itemize}
 \end{block}
 \vspace{-2pt}
 \begin{block}{Part III --- The leading example of AGS (2022): the 56-cohort benchmark}
 \vspace{-3pt}\begin{itemize}\itemsep0pt
     \item Same 9-step recipe at research scale: two assets, two borrowing constraints, capital adjustment costs, persistent shocks, hump-shaped labor.
-    \item Primary notebook: \texttt{04\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}; companion ablation \texttt{04\_03\_OLG\_Benchmark\_DEQN\_exogenous.ipynb}.
+    \item Primary notebook: \texttt{05\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}; companion ablation \texttt{05\_03\_OLG\_Benchmark\_DEQN\_exogenous.ipynb}.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -523,7 +523,7 @@ G\!\left(\!\begin{bmatrix} z_t \\ \bm{k}_t\end{bmatrix},\; \N_\theta\!\left(\!\b
 % --- Hand-over to the analytic-model notebook -------------------------
 \begin{frame}{Companion Notebook Hand-over}
 \scriptsize
-\emphc{Open notebook \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}} (the persistent-simulation primary; the exogenous-sampling companion is \texttt{04\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb}).  It implements the model, equilibrium conditions, loss, FREE map, architecture, training, and validation covered in Part II.
+\emphc{Open notebook \texttt{05\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}} (the persistent-simulation primary; the exogenous-sampling companion is \texttt{05\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb}).  It implements the model, equilibrium conditions, loss, FREE map, architecture, training, and validation covered in Part II.
 \vspace{-2pt}
 \begin{block}{Cell-to-slide map}
 \vspace{-4pt}
@@ -704,7 +704,7 @@ Cohort $h$ & Periods remaining ($A-h$) & Savings rate $\beta_h$\\
 The plotted points are the \emphc{exact closed form} from the finger-exercise solution slide.  The DEQN should reproduce this curve cohort-by-cohort.
 
 \vspace{2pt}
-The actual training run, DEQN-vs-analytic comparison, and Euler-error histogram are produced by \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb} (\S 8).  Production target in AGS (2022): mean relative Euler error $\lesssim 10^{-3}$.
+The actual training run, DEQN-vs-analytic comparison, and Euler-error histogram are produced by \texttt{05\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb} (\S 8).  Production target in AGS (2022): mean relative Euler error $\lesssim 10^{-3}$.
 \end{block}
 \end{frame}
 
@@ -722,7 +722,7 @@ The actual training run, DEQN-vs-analytic comparison, and Euler-error histogram 
 \end{block}
 
 \begin{block}{Hands-on}
-Open \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}.  Set \texttt{RUN\_MODE = "teaching"} ($\sim 5$ min) for the classroom run; \texttt{"smoke"} (the default) is a $\sim$30-s sanity check; \texttt{"production"} chases AGS Table~3 accuracy.  Both notebooks expose a \texttt{SAMPLING\_MODE = "simulation" / "exogenous"} switch (the persistent primary uses \texttt{"simulation"}, the companion \texttt{04\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb} uses \texttt{"exogenous"}); the model and loss are identical -- only the training cloud differs.
+Open \texttt{05\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}.  Set \texttt{RUN\_MODE = "teaching"} ($\sim 5$ min) for the classroom run; \texttt{"smoke"} (the default) is a $\sim$30-s sanity check; \texttt{"production"} chases AGS Table~3 accuracy.  Both notebooks expose a \texttt{SAMPLING\_MODE = "simulation" / "exogenous"} switch (the persistent primary uses \texttt{"simulation"}, the companion \texttt{05\_01\_OLG\_Analytic\_DEQN\_exogenous.ipynb} uses \texttt{"exogenous"}); the model and loss are identical -- only the training cloud differs.
 \end{block}
 \end{frame}
 
@@ -750,7 +750,7 @@ Open \texttt{04\_02\_OLG\_Analytic\_DEQN\_persistent.ipynb}.  Set \texttt{RUN\_M
 \end{itemize}
 
 \vspace{0.2em}
-{\scriptsize \emphc{Notation vs.\ Session 3 (IRBC):} here $\alpha$ = capital share ($\zeta$ there), $\zeta$ = adjustment-cost coefficient ($\kappa$ there), $\kappa$ = collateral parameter, and $\gamma$ = CRRA risk aversion (IES there).}
+{\scriptsize \emphc{Notation vs.\ Session 4 (IRBC):} here $\alpha$ = capital share ($\zeta$ there), $\zeta$ = adjustment-cost coefficient ($\kappa$ there), $\kappa$ = collateral parameter, and $\gamma$ = CRRA risk aversion (IES there).}
 
 \column{0.42\textwidth}
 \centering
@@ -975,7 +975,7 @@ $\N_\theta:\;\R^{240} \to \R^{221}$
 \end{center}
 \vspace{-4pt}
 
-\begin{block}{Sizes from \texttt{04\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}}
+\begin{block}{Sizes from \texttt{05\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}}
 \centering
 \begin{tabular}{ll}
 \toprule
@@ -1077,7 +1077,7 @@ Same MLP template as Part II, plus a bond-price head; collateral formed as $\hat
 \footnotesize
 \begin{block}{State-conditioned slices of the trained policy}
 \vspace{-3pt}
-For each aggregate state $z \in \{1,2,3,4\}$ the trained policy yields a lifecycle consumption profile $c^s(z)$ over ages $s=25,\ldots,80$, read off a long ergodic simulation from \texttt{04\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}.  (The notebook ships pooled lifecycle bands and residual diagnostics; the per-shock breakdown is a small add.)
+For each aggregate state $z \in \{1,2,3,4\}$ the trained policy yields a lifecycle consumption profile $c^s(z)$ over ages $s=25,\ldots,80$, read off a long ergodic simulation from \texttt{05\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}.  (The notebook ships pooled lifecycle bands and residual diagnostics; the per-shock breakdown is a small add.)
 \end{block}
 
 \begin{block}{The four aggregate states}
@@ -1117,7 +1117,7 @@ Four distinct profiles, ordered as in the table; exact magnitudes and crossover 
 \end{block}
 
 \vspace{-2pt}
-\textbf{Hands-on: \texttt{04\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}} (persistent-simulation primary; \texttt{04\_03\_OLG\_Benchmark\_DEQN\_exogenous.ipynb} is the feedback-free ablation, same model and loss, different training cloud).  \S 1--4 match III.1--III.5; \S 5--7 = training and policy stability; \S 8 = plots/diagnostics of III.10--III.12.  Teaching runtime ($\sim$200 segments, 128-wide): a few minutes.
+\textbf{Hands-on: \texttt{05\_04\_OLG\_Benchmark\_DEQN\_persistent.ipynb}} (persistent-simulation primary; \texttt{05\_03\_OLG\_Benchmark\_DEQN\_exogenous.ipynb} is the feedback-free ablation, same model and loss, different training cloud).  \S 1--4 match III.1--III.5; \S 5--7 = training and policy stability; \S 8 = plots/diagnostics of III.10--III.12.  Teaching runtime ($\sim$200 segments, 128-wide): a few minutes.
 \end{frame}
 
 
@@ -1147,18 +1147,18 @@ Four distinct profiles, ordered as in the table; exact magnitudes and crossover 
 \end{alertblock}
 
 \vspace{0.2em}
-{\footnotesize \textbf{Hands-on exercise:} \texttt{04\_05\_OLG\_Exercise.ipynb} --- guided tasks on the analytic 6-agent model, building on notebook 04\_02.}
+{\footnotesize \textbf{Hands-on exercise:} \texttt{05\_05\_OLG\_Exercise.ipynb} --- guided tasks on the analytic 6-agent model, building on notebook 05\_02.}
 \end{frame}
 
 
 \begin{frame}{References and Further Reading}
 \small
 \begin{itemize}\itemsep3pt
-    \item Azinovic, M., Gaegauf, L., \& Scheidegger, S. (2022). \emph{Deep equilibrium nets.} International Economic Review 63(4), 1471--1525.  \;[\,notebook 04\_04 (\texttt{benchmark\_persistent}) implements \S 3 of this paper].
+    \item Azinovic, M., Gaegauf, L., \& Scheidegger, S. (2022). \emph{Deep equilibrium nets.} International Economic Review 63(4), 1471--1525.  \;[\,notebook 05\_04 (\texttt{benchmark\_persistent}) implements \S 3 of this paper].
 
-    \item Krueger, D., \& K\"ubler, F. (2004). \emph{Computing equilibrium in OLG models with stochastic production.} Journal of Economic Dynamics \& Control 28(7), 1411--1436.  \;[\,notebook 04\_02 (\texttt{analytic\_persistent}) implements their 6-agent analytic model].
+    \item Krueger, D., \& K\"ubler, F. (2004). \emph{Computing equilibrium in OLG models with stochastic production.} Journal of Economic Dynamics \& Control 28(7), 1411--1436.  \;[\,notebook 05\_02 (\texttt{analytic\_persistent}) implements their 6-agent analytic model].
 
-    \item Fischer, A. (1992). \emph{A special Newton-type optimization method.} Optimization 24, 269--284.  \;[FB-complementarity function -- used in \textbf{Session 3 (IRBC)}; mentioned in this lecture only as an alternative to the product-form KKT residuals adopted here.]
+    \item Fischer, A. (1992). \emph{A special Newton-type optimization method.} Optimization 24, 269--284.  \;[FB-complementarity function -- used in \textbf{Session 4 (IRBC)}; mentioned in this lecture only as an alternative to the product-form KKT residuals adopted here.]
 
     \item Code: \scriptsize\url{https://github.com/sischei/DeepEquilibriumNets}.
 \end{itemize}

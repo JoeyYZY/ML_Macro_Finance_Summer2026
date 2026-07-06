@@ -45,7 +45,9 @@ To run locally: `pip install -r requirements.txt` (see [`requirements.txt`](requ
 
 **Session 3** has no notebooks; the deck is based on Friedl, Kübler, Scheidegger &
 Usui (2023, deep UQ) and Kübler, Scheidegger & Surbek (2026, constrained optimal
-carbon taxes).
+carbon taxes). The replication code for the constrained-optimal-carbon-tax paper is
+available at
+<https://github.com/sischei/JPE_Macro_Using_ML_to_compute_constrained_optimal_carbon_tax_rules>.
 
 ## Notation conventions
 
@@ -58,6 +60,8 @@ The Session-1 lazy-learning frames follow the same convention.
 
 - The **lecture script** (chapters on surrogates, SMM ≈ Ch. 9–10) is in
   [`../../day2/Scheidegger_Kubler/readings/`](../../day2/Scheidegger_Kubler/readings/).
+- Bayesian-optimization reference (supports the Lecture 6 GP / Bayesian-numerics material):
+  [`readings/bayesoptbook.pdf`](readings/bayesoptbook.pdf).
 - Much more material — additional lectures, notebooks, and the always-current
   script — in the library:
   <https://github.com/sischei/Deep_Learning_for_Solving_And_Estimating_Dynamic_Economic_Models>.
