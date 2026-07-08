@@ -74,6 +74,25 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
+% ---------- Pathologies section: helpers (adapted from the CEF Venice deck) ----------
+\usepackage{tcolorbox}
+\definecolor{stone}{RGB}{130,128,122}
+\newcommand{\lemph}[1]{{\color{uzhblue}\bfseries #1}}
+\newcommand{\vemph}[1]{{\color{harvardcrimson}\bfseries #1}}
+\newcommand{\gemph}[1]{{\color{darkgreen}\bfseries #1}}
+\newcommand{\visualcaption}[1]{{\scriptsize\color{stone}\itshape #1}}
+\newcommand{\param}{{\bm{\theta}}}
+\newcommand{\policy}{{\bm{g}}}
+\newcommand{\state}{{\bm{x}}}
+\newcommand{\resid}{\mathcal{R}}
+\newcommand{\cov}{\mu_{\mathrm{cov}}}
+\newtcolorbox{pitfall}[1][Behind the mask]{%
+  colback=harvardcrimson!6,colframe=harvardcrimson,coltitle=white,fonttitle=\bfseries,
+  title={#1},rounded corners,boxrule=1pt,left=5pt,right=5pt,top=3pt,bottom=3pt}
+\newtcolorbox{recipe}[1][Recipe]{%
+  colback=softgreen!7,colframe=softgreen!80!black,coltitle=white,fonttitle=\bfseries,
+  title={#1},rounded corners,boxrule=1pt,left=5pt,right=5pt,top=3pt,bottom=3pt}
+
 % ---------- Title ----------
 \title[PKU--Zurich Summer School 2026]
 {PKU--Zurich PhD Summer School on Machine Learning for Macroeconomics and Finance}
@@ -102,19 +121,20 @@
 
 % --- Slide 2: Roadmap ---
 \begin{frame}{Roadmap of This Lecture}
+\footnotesize
 \begin{columns}[T]
 \column{0.48\textwidth}
 \textbf{Motivation}
-\begin{itemize}
+\begin{itemize}\setlength\itemsep{1pt}
     \item Heterogeneity and high dimensions
     \item Nonlinearities and kinks
     \item Irregular ergodic sets
     \item Our solution: DEQNs
 \end{itemize}
 
-\vspace{0.5em}
+\vspace{0.35em}
 \textbf{From ANNs to DEQNs}
-\begin{itemize}
+\begin{itemize}\setlength\itemsep{1pt}
     \item DNNs as function approximators
     \item Supervised vs.\ self-supervised loss
     \item The DEQN training algorithm
@@ -122,21 +142,26 @@
 
 \column{0.48\textwidth}
 \textbf{Brock--Mirman Benchmark}
-\begin{itemize}
+\begin{itemize}\setlength\itemsep{1pt}
     \item Analytical test case
     \item DEQN implementation
 \end{itemize}
 
-\vspace{0.5em}
-\textbf{Parallelization \& HPC}
-\begin{itemize}
-    \item Data parallelism (MPI/Horovod)
-    \item Scalability to many nodes
+\vspace{0.35em}
+\textbf{Known Pathologies (\& Remedies)}
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Loss imbalance, architecture, lazy learning, residual learning, coverage
 \end{itemize}
 
-\vspace{0.5em}
+\vspace{0.35em}
+\textbf{Parallelization \& HPC}
+\begin{itemize}\setlength\itemsep{1pt}
+    \item Data parallelism (MPI/Horovod); scalability to many nodes
+\end{itemize}
+
+\vspace{0.35em}
 \textbf{Wrap-up + Hands-on}
-\begin{itemize}
+\begin{itemize}\setlength\itemsep{1pt}
     \item Notebooks 01\_01--01\_04 (BM, BM+shocks, exercises); optional 01\_05
     \item Exercise preview: KKT + Fischer--Burmeister, 6-period OLG
 \end{itemize}
@@ -1050,7 +1075,7 @@ The budget then implies $K_{t+1} = \phi\, z_t K_t^{\alpha}$.
 \end{frame}
 
 % --- Slide 28: Brock-Mirman residual ---
-\begin{frame}[shrink=10]{Brock--Mirman: Residual, Expectation, Loss}
+\begin{frame}[shrink=20]{Brock--Mirman: Residual, Expectation, Loss}
 \textbf{Pathwise residual used in the notebook} (full-depreciation $\delta=1$ benchmark; $G_t$ is the pathwise counterpart of the $e_{\mathrm{REE}}$ shown two slides back --- both share the same zero set):
 \[
 G_t = 1 - \beta \, \frac{C_t}{C_{t+1}} \cdot \alpha z_{t+1} K_{t+1}^{\alpha-1},
@@ -1061,10 +1086,10 @@ K_{t+1} = s_t z_t K_t^\alpha, \qquad
 C_{t+1} = (1-s_{t+1}) z_{t+1} K_{t+1}^\alpha.
 \]
 
-\vspace{-0.2em}
+\vspace{-0.4em}
 {\scriptsize\emphc{Partial depreciation.}  The uncertainty notebook uses $\delta=0.1$; the marginal productivity of capital then becomes $\alpha z_{t+1} K_{t+1}^{\alpha-1} + (1-\delta)$ and $K_{t+2} = z_{t+1} K_{t+1}^{\alpha} + (1-\delta) K_{t+1} - C_{t+1}$.  The closed-form $\phi = \alpha\beta$ only holds at $\delta=1$.}
 
-\vspace{0.3em}
+\vspace{0.1em}
 \begin{columns}[T]
 \column{0.52\textwidth}
 \textbf{Training loss:}
@@ -1177,7 +1202,7 @@ Throw $N$ uniform darts at $\Omega = [0,1]^2$:
 % --- Slide 30: Gauss-Hermite quadrature ---
 \begin{frame}{Quadrature, I: Gauss--Hermite}
 \footnotesize
-\textbf{Setup.} Generic shock dimension $d$, with $\bm\varepsilon' \sim \mathcal{N}(0, I_d)$.  Brock--Mirman has $d=1$ (one productivity shock); the IRBC session (Session 3) will use $d=N+1$ ($N$ country shocks plus one aggregate).  We develop the framework here so it is ready for both cases.
+\textbf{Setup.} Generic shock dimension $d$, with $\bm\varepsilon' \sim \mathcal{N}(0, I_d)$.  Brock--Mirman has $d=1$ (one productivity shock); the IRBC session (Session 4) will use $d=N+1$ ($N$ country shocks plus one aggregate).  We develop the framework here so it is ready for both cases.
 
 \vspace{0.3em}
 \textbf{One dimension.} Gauss--Hermite uses $Q$ nodes $\{\varepsilon_q\}$ (Hermite-polynomial roots) and weights $\{w_q\}$:
@@ -1353,14 +1378,364 @@ CVaR     & mean of top $10\%$ of $|r|$                        & explicitly train
 \end{frame}
 
 % ============================================================================
-% PART IV: PARALLELIZATION AND HPC
+% PART IV: KNOWN PATHOLOGIES OF UNSUPERVISED DEEP LEARNING
+% (adapted from the CEF Venice 2026 talk, "After Carnival Comes Lent")
 % ============================================================================
 
-% --- Slide 26: Part IV Divider ---
+% --- Part IV Divider ---
 \begin{frame}{}
 \vfill
 \begin{center}
 {\Huge \textcolor{uzhblue}{\textbf{Part IV}}}\\[12pt]
+{\LARGE Known Pathologies of Unsupervised Deep Learning}\\[10pt]
+{\normalsize\itshape diagnostics and remedies}
+\end{center}
+\vfill
+\end{frame}
+
+% ---- framing: potential vs practice ----
+\begin{frame}{Huge Potential, but Not Yet Dynare}
+\vspace{0.2em}
+\begin{itemize}\setlength\itemsep{4pt}\small
+  \item \lemph{The promise:} mesh-free, high-dimensional, kinks and all.
+  \item \vemph{The catch:} not yet a turnkey solver, and seed-sensitive.
+\end{itemize}
+\vspace{0.3em}
+\begin{columns}[T,onlytextwidth]
+\column{0.60\textwidth}
+\textbf{\color{uzhblue}Five pathologies of self-supervised (residual-only) training --- we discuss them now, one by one:}
+\begin{itemize}\setlength\itemsep{3pt}\footnotesize
+  \item[(a)] \vemph{Loss-scale imbalance} $\rightarrow$ normalize, adapt the weights.
+  \item[(b)] \vemph{Architecture choice} $\rightarrow$ search the candidate space.
+  \item[(c)] \vemph{Lazy surrogate learning} $\rightarrow$ anchors and distillation.
+  \item[(d)] \vemph{Learning from scratch} $\rightarrow$ freeze a guess, learn the correction.
+  \item[(e)] \vemph{Self-confirming coverage} $\rightarrow$ audit on a coverage
+        measure (Equilibrium World Models).
+\end{itemize}
+\column{0.36\textwidth}
+\begin{pitfall}[Seed dependence]
+\footnotesize Same model, same code, different seed: one run converges and
+verifies, another stalls. Reproducibility is part of the method.
+\end{pitfall}
+\end{columns}
+\end{frame}
+
+% ---- (a) loss rebalancing ----
+\begin{frame}{(a) The Residual Loss Is Not One Loss}
+\begin{columns}[T,onlytextwidth]
+\column{0.52\textwidth}
+\textbf{Symptom.} The training loss sums residuals that live on very different
+scales:
+\[
+  \ell(\param)=\sum_{k=1}^{K} w_k\,\ell_k(\param).
+\]
+{\footnotesize
+\begin{itemize}\setlength\itemsep{2pt}
+  \item Euler equations, KKT / complementarity, market clearing, boundary terms.
+  \item With uniform weights the optimizer follows the \lemph{loudest} component
+        and leaves quiet but economically important residuals large.
+\end{itemize}}
+\column{0.44\textwidth}
+\begin{pitfall}[One loss, many voices]
+\small A small \emph{total} loss can hide a component that is orders of magnitude
+too large. The total alone is not a certificate.
+\end{pitfall}
+\end{columns}
+\end{frame}
+
+\begin{frame}{(a) Rebalancing the Loss}
+\begin{columns}[T,onlytextwidth]
+\column{0.46\textwidth}
+{\footnotesize
+\begin{itemize}\setlength\topsep{0pt}\setlength\itemsep{1pt}
+  \item \textbf{Fix.} Normalize each residual and \lemph{adapt the weights}
+        during training.
+  \item For instance, ReLoBRaLo raises the weight on terms whose relative
+        progress lags:
+\end{itemize}}
+\vspace{-0.85em}
+{\scriptsize
+\[
+  w_k^{(t)}=\alpha\bigl[\rho\,w_k^{(t-1)}+(1-\rho)\,\hat w_{k,\mathrm{base}}^{(t)}\bigr]
+            +(1-\alpha)\,\hat w_{k,\mathrm{step}}^{(t)} .
+\]
+}
+{\scriptsize $\alpha,\rho\in[0,1]$: a random look-back weight and an EMA decay;
+$\hat w_{\mathrm{base}}$ uses the running history, $\hat w_{\mathrm{step}}$ the
+current step.}
+\begin{recipe}[Remedy]
+\footnotesize Monitor every component; rebalance with ReLoBRaLo, SoftAdapt, or
+GradNorm. \emphc{Session 2} develops this in detail.
+\end{recipe}
+\column{0.50\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.58\textheight,keepaspectratio]{figures/relobralo_weights.png}\\[2pt]
+\visualcaption{One training run: separate residual components and the adaptive
+weights that keep them balanced.}
+\end{columns}
+\end{frame}
+
+% ---- (b) neural architecture search ----
+\begin{frame}{(b) Architecture Is Part of the Numerical Method}
+\begin{columns}[T,onlytextwidth]
+\column{0.54\textwidth}
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{\color{uzhblue}Symptom.} With the \emph{same} economic equations,
+        one network converges and another stalls.
+  \item Width, depth, activation, and learning rate are
+        \lemph{numerical-method choices}, not cosmetics.
+\end{itemize}
+\vspace{0.3em}
+
+\textbf{\color{uzhblue}The search space.} Make the candidate set explicit:
+\begin{itemize}\setlength\itemsep{2pt}\footnotesize
+  \item depth $\in\{2,\dots,5\}$, width $\in\{32,64,128,256\}$;
+  \item activation $\in\{\mathrm{ReLU},\mathrm{Swish},\tanh\}$, smooth ones for
+        second-order PDEs;
+  \item learning rate, batch size, weight decay.
+  \item these axes \emph{multiply}: a \lemph{curse of dimensionality in design
+        space}.
+\end{itemize}
+\column{0.42\textwidth}
+\begin{pitfall}[Hand-tuning does not scale]
+\small One architecture is one experiment. Reporting only the winner hides how
+fragile, or robust, the result is.
+\end{pitfall}
+\end{columns}
+\end{frame}
+
+\begin{frame}{(b) Searching the Architecture Automatically}
+\begin{columns}[T,onlytextwidth]
+\column{0.46\textwidth}
+\textbf{Fix.} Treat the architecture as a variable to \lemph{optimize}, and
+report the protocol:
+\begin{itemize}\setlength\itemsep{3pt}\footnotesize
+  \item random search over the space;
+  \item Bayesian optimization: a GP surrogate of validation loss with an
+        expected-improvement rule;
+  \item Hyperband / successive halving: cheap trials first, then budget the
+        survivors (Bergstra \& Bengio 2012; Li et al.\ 2018).
+\end{itemize}
+\begin{recipe}[Remedy]
+\footnotesize Fix a \lemph{compute budget} up front; you cannot search forever.
+Spend it reproducibly and report the candidate space, not only the winner.
+\emphc{Session 2} covers random search and Hyperband.
+\end{recipe}
+\column{0.50\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.58\textheight,keepaspectratio]{figures/nas_search_results.png}\\[2pt]
+\visualcaption{Search can move validation loss by orders of magnitude before the
+economic model changes.}
+\end{columns}
+\end{frame}
+
+% ---- (c) lazy surrogate learning ----
+\begin{frame}[shrink=5]{(c) Lazy Learning: Low Residual, Wrong Policy}
+\begin{columns}[T,onlytextwidth]
+\column{0.46\textwidth}
+{\footnotesize
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{\color{uzhblue}Symptom.} Lazy training is a \lemph{typical pitfall
+        of unsupervised} (residual-only) learning.
+  \item It drives the equilibrium residual down while the policy stays inaccurate
+        across the state--parameter domain.
+\end{itemize}}
+\vspace{0.3em}
+\begin{itemize}\setlength\itemsep{3pt}\footnotesize
+  \item Fix a state, and vary a \emph{parameter} $\vartheta$ (a taste, a tax, a
+        shock size).
+  \item The true policy moves with $\vartheta$; the lazy surrogate stays
+        \emph{flat}, so it gets the level right on average but the
+        \lemph{sensitivity} wrong.
+\end{itemize}
+\begin{pitfall}[Too flat in the parameter]
+\footnotesize Low loss, weak parameter dependence: the mask is convincing only
+on average.
+\end{pitfall}
+\column{0.52\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=\linewidth,height=0.60\textheight,
+   xlabel={parameter $\vartheta$},ylabel={policy $g$ at a fixed state},
+   xlabel style={font=\scriptsize},ylabel style={font=\scriptsize},
+   tick label style={font=\tiny},
+   xmin=0,xmax=1,ymin=0,ymax=1.3,
+   axis lines=left, clip=false]
+ \addplot[uzhblue,very thick,domain=0:1,samples=60]{0.12+0.62*x+0.22*x*x};
+ \node[uzhblue,font=\scriptsize\bfseries,anchor=east]
+   at (axis cs:0.98,1.04){true $g^\star(\vartheta)$};
+ \addplot[harvardcrimson,very thick,densely dashed,domain=0:1,samples=2]{0.50+0.04*x};
+ \node[harvardcrimson,font=\scriptsize\bfseries,anchor=north east]
+   at (axis cs:0.97,0.47){lazy $\mathcal N_\param(\vartheta)$};
+ \draw[<->,thick,stone] (axis cs:0.85,0.55) -- (axis cs:0.85,0.79);
+ \node[stone,font=\tiny,anchor=south] at (axis cs:0.55,1.14){missed $\vartheta$-dependence};
+\end{axis}
+\end{tikzpicture}\\[1pt]
+\visualcaption{At a fixed state, the true policy varies with $\vartheta$ (blue);
+the lazy surrogate is almost flat (red dashed), so it misses how the answer
+should respond to the parameter.}
+\end{columns}
+\end{frame}
+
+\begin{frame}{(c) The Fix: Anchors and Distillation}
+\vspace*{\fill}
+\begin{columns}[T,onlytextwidth]
+\column{0.56\textwidth}
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{\color{uzhblue}Fix.} Augment the self-supervised residual with a
+        small \lemph{semi-supervised distillation} term on a few trusted anchor
+        states:
+\end{itemize}
+\[
+  \ell^{\mathrm{dist}}_\param=\ell_\param
+   +\lambda\!\sum_{x_a\in\mathcal A}\!\bigl\|\mathcal N_\param(x_a)-p^\star(x_a)\bigr\|^2 .
+\]
+{\footnotesize
+\begin{itemize}\setlength\itemsep{2pt}
+  \item $\mathcal A$: a handful of anchor states.
+  \item $p^\star$: reference policies from an accurate solver (perturbation, a
+        low-dimensional solve, or a converged reference run).
+\end{itemize}}
+\column{0.40\textwidth}
+\begin{recipe}[Remedy]
+\footnotesize In the deep-UQ application of Friedl et al.\ (2023), only
+\gemph{10--20 anchors} stabilize training, with leave-one-out agreement
+\gemph{within $1\%$}.
+\end{recipe}
+\end{columns}
+\vspace*{\fill}
+\end{frame}
+
+% ---- (d) residual learning: freeze and correct ----
+\begin{frame}{(d) Residual Learning: Freeze and Correct}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+\textbf{Idea.} Don't ask the network for the \emph{whole} solution. Ask for the
+\lemph{correction} to a cheap baseline:
+\[
+  \policy(\state)=\underbrace{\policy_0(\state)}_{\text{frozen guess}}
+   +\;\mathcal N_\param(\state).
+\]
+\begin{itemize}\setlength\itemsep{2pt}\footnotesize
+  \item $\policy_0$: a cheap guess --- steady state, perturbation, or certainty
+        equivalent.
+  \item The net learns only the \emph{small, nonlinear} residual, so
+        \lemph{spectral bias bites far less}.
+  \item Sane from iteration zero, and natural for PDE / HJB problems.
+\end{itemize}
+\vspace{0.3em}
+{\footnotesize $\rightarrow$ \lemph{The network is a proofreader, not an author.}}
+\column{0.48\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=\linewidth,height=0.58\textheight,
+   xlabel={\scriptsize state},xmin=0,xmax=3,ymin=-0.5,ymax=2.7,
+   tick label style={font=\tiny},label style={font=\scriptsize},
+   axis line style={stone},ytick=\empty,
+   legend style={font=\tiny,draw=stone!40,at={(0.02,0.98)},
+                 anchor=north west,row sep=-1pt}]
+  \addplot[stone,thick,dashed,domain=0:3,samples=40]{0.6*x+0.45};
+  \addlegendentry{frozen $\policy_0$ (perturbation)}
+  \addplot[harvardcrimson,very thick,domain=0:3,samples=160]
+    {0.6*x+0.45+0.30*sin(deg(110*x))};
+  \addlegendentry{true policy}
+  \addplot[softgreen!80!black,very thick,domain=0:3,samples=160]
+    {0.30*sin(deg(110*x))};
+  \addlegendentry{$\mathcal N_\param$: the correction}
+\end{axis}
+\end{tikzpicture}\\[2pt]
+\visualcaption{The net only fits the small wiggle: frozen guess plus learned
+correction.}
+\end{columns}
+\end{frame}
+
+% ---- (e) self-confirming coverage / Equilibrium World Models ----
+\begin{frame}{(e) The Small Print of Pathwise Residual Training}
+\vspace{0.4em}
+{\footnotesize Every DEQN solver is \lemph{unsupervised}: it drives an equation
+residual to zero on the states its \emph{own} policy generates,}
+\[
+  \mathcal L_{\mathrm{DEQN}}(\param)=
+  \mathbb{E}_{\state\sim\mu_{\policy_\param}}
+  \bigl\|\,\resid\!\left(\state,\policy_\param(\state),Q^{\policy_\param}(\state)\right)\bigr\|^2 ,
+\]
+{\footnotesize so $\mu_{\policy_\param}$ is generated \lemph{by the candidate
+policy itself}; $Q^{\policy_\param}$ is the continuation value under that policy.}
+\vspace{0.5em}
+\begin{itemize}\setlength\itemsep{4pt}\footnotesize
+  \item The residual is only ever tested where the current policy already goes.
+  \item A low loss says \lemph{nothing} about the states it avoids.
+  \item A wrong policy visits the wrong states, so the error \lemph{hides exactly
+        where it is never measured}.
+  \item The loss \lemph{confirms itself} --- a property of unsupervised training,
+        shared by every method so far, not a DEQN-specific flaw.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{(e) EWM: A Disciplined Dreamer}
+\vspace{0.05em}
+{\small \gemph{Equilibrium World Models} keep the economics and change
+\lemph{where} the residual is imposed.}
+\vspace{-0.25em}
+\begin{center}
+\begin{tikzpicture}
+  \node[inner sep=0] (img)
+    {\includegraphics[width=\textwidth,height=0.30\textheight,keepaspectratio]{figures/ewm_mechanism.png}};
+  \node[anchor=south,font=\footnotesize\bfseries,text=uzhblue]
+    at ($(img.north west)!0.19!(img.north east)$) {Unsupervised residual solver};
+  \node[anchor=south,font=\footnotesize\bfseries,text=harvardcrimson]
+    at ($(img.north west)!0.74!(img.north east)$) {EWM};
+\end{tikzpicture}
+\end{center}
+\vspace{-0.15em}
+\begin{itemize}\setlength\itemsep{1pt}\footnotesize
+  \item \lemph{New:} a coverage measure
+        $\cov=c_1\mu_{\policy_\param}+c_2\mu^{\mathrm{stress}}+c_3\mu^{\mathrm{local}}$
+        and a learned continuation
+        $\widehat Q_\param\!\approx\!Q^{\policy_\param}$.
+  \item \lemph{Unchanged:} the law of motion $\Gamma$, the residual $\resid$, and the
+        exact certificate
+        $\resid\bigl(\state,\policy_\param(\state),Q^{\policy_\param}(\state)\bigr)$ on $\cov$.
+  \item \lemph{EWM is a disciplined dreamer} that certifies with the exact residual.
+\end{itemize}
+\vfill
+{\tiny\color{stone} Equilibrium World Models: Schaab \& Scheidegger (2026); world-model /
+Dreamer lineage: Ha \& Schmidhuber (2018), Hafner et al.\ (2023).}
+\end{frame}
+
+\begin{frame}{(e) What the Audit Buys: Off-Path Credibility}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.58\textheight,keepaspectratio]{figures/ewm_bm_coverage_2d.png}\\[2pt]
+\visualcaption{Coverage in $(k,z)$: the ergodic path plus stressed and
+counterfactual states, each produced by the exact law of motion $\Gamma$.}
+\column{0.46\textwidth}
+\small The economics is read in \lemph{rare, stressed, counterfactual} regions,
+exactly where pathwise training is weakest.
+\vspace{0.5em}
+\begin{itemize}\setlength\itemsep{8pt}\footnotesize
+  \item In some \lemph{rare-disaster} models the standard deep-learning solver
+        \lemph{fails to find a verified solution}, across essentially every
+        random seed.
+  \item With coverage, \gemph{EWM solves almost every time}, and certifies the
+        error on the disaster region.
+\end{itemize}
+\vspace{0.6em}
+{\footnotesize\itshape\color{stone}Not a new equilibrium concept, a
+\emph{stronger certificate} for the same one.}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% PART V: PARALLELIZATION AND HPC
+% ============================================================================
+
+% --- Part V Divider ---
+\begin{frame}{}
+\vfill
+\begin{center}
+{\Huge \textcolor{uzhblue}{\textbf{Part V}}}\\[12pt]
 {\LARGE Parallelization \& HPC}
 \end{center}
 \vfill
@@ -1496,18 +1871,18 @@ than to grow a gigantic ox.''}
 \textbf{Exercise notebooks 01\_03/01\_04 extend Brock--Mirman in two directions:}
 \begin{enumerate}\itemsep2pt
     \item \emph{Endogenous labor} with a non-negativity constraint on leisure, introducing a \emph{Karush--Kuhn--Tucker} multiplier $\mu_t \ge 0$.
-    \item A \emph{6-period OLG} economy with a borrowing constraint on the young, again KKT with $\mu_t \ge 0$ (a warm-up economy --- distinct from the Krueger--K\"ubler analytic model of Session 4).
+    \item A \emph{6-period OLG} economy with a borrowing constraint on the young, again KKT with $\mu_t \ge 0$ (a warm-up economy --- distinct from the Krueger--K\"ubler analytic model of Session 5).
 \end{enumerate}
 
 \vspace{0.4em}
-\textbf{Why this matters for DEQNs.}  A KKT system imposes complementary slackness $\mu \ge 0,\ g \ge 0,\ \mu\,g = 0$ --- three conditions that cannot be enforced by a single equation without extra care.  \emph{Fischer--Burmeister} packages all three into one residual (Session 4 will use an alternative, the product-form residual $\mu \cdot g = 0$):
+\textbf{Why this matters for DEQNs.}  A KKT system imposes complementary slackness $\mu \ge 0,\ g \ge 0,\ \mu\,g = 0$ --- three conditions that cannot be enforced by a single equation without extra care.  \emph{Fischer--Burmeister} packages all three into one residual (Session 5 will use an alternative, the product-form residual $\mu \cdot g = 0$):
 \[
 \phi_{\mathrm{FB}}(a,b) \;=\; a + b - \sqrt{a^2 + b^2}, \qquad \phi_{\mathrm{FB}}(a,b) = 0 \ \Longleftrightarrow\ a \ge 0,\ b \ge 0,\ a\,b = 0,
 \]
 which is smooth everywhere except at the origin and is fully differentiable by autodiff.
 
 \vspace{0.3em}
-{\footnotesize \emphc{Exercise loss.}  The notebooks sum a squared \emph{Euler} residual and a squared \emph{FB} residual for each constraint; both are minimized jointly.  Details: see Session 3 (IRBC) and the KKT sub-section of the lecture script's IRBC chapter.}
+{\footnotesize \emphc{Exercise loss.}  The notebooks sum a squared \emph{Euler} residual and a squared \emph{FB} residual for each constraint; both are minimized jointly.  Details: see Session 4 (IRBC) and the KKT sub-section of the lecture script's IRBC chapter.}
 \end{frame}
 
 % --- Slide 31: Hands-on Notebooks (wrap-up) ---
@@ -1534,6 +1909,31 @@ which is smooth everywhere except at the origin and is fully differentiable by a
 All notebooks are in \texttt{day2/Scheidegger\_Kubler/code/01\_brock\_mirman/}.
 \end{frame}
 
+% --- Want more? The book / lecture script ---
+\begin{frame}{Want More Details? The Full Book}
+\begin{columns}[c]
+\column{0.42\textwidth}
+\begin{center}
+\includegraphics[height=0.78\textheight]{figures/book_hero.png}
+\end{center}
+
+\column{0.54\textwidth}
+\textbf{\emphc{Deep Learning for Solving and Estimating Dynamic Models in Economics and Finance}}\\[5pt]
+
+A \textbf{book} / graduate lecture script that develops these methods in full.\\[4pt]
+
+\begin{itemize}\itemsep2pt
+    \item \textbf{18 lectures}, from foundations to research-level applications.
+    \item \emphc{Everything is in code} --- each lecture ships with runnable notebooks.
+    \item In case you want to get more details.
+\end{itemize}
+
+\vspace{5pt}
+{\small Freely available on GitHub:}\\[2pt]
+{\scriptsize\sloppy\url{https://github.com/sischei/Deep_Learning_for_Solving_And_Estimating_Dynamic_Economic_Models/tree/main}}
+\end{columns}
+\end{frame}
+
 % --- Questions ---
 \begin{frame}{}
 \begin{columns}[c]
@@ -1553,7 +1953,7 @@ All notebooks are in \texttt{day2/Scheidegger\_Kubler/code/01\_brock\_mirman/}.
 \column{0.45\textwidth}
 \begin{center}
 \textbf{Next up:}\\[6pt]
-{\large Session 3: IRBC ---\\[2pt] nonlinear DSGE models in 4 to 100+ dimensions}\\[10pt]
+{\large Session 4: IRBC ---\\[2pt] nonlinear DSGE models in 4 to 100+ dimensions}\\[10pt]
 {\small (hands-on exercises: this afternoon's tutorial)}\\[6pt]
 \end{center}
 \end{columns}
